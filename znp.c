@@ -52,7 +52,6 @@
 #include "rpcTransport.h"
 #include "dbgPrint.h"
 #include "hostConsole.h"
-#include "zigbee_network.h"
 
 /*********************************************************************
  * MACROS
