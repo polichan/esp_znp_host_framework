@@ -145,8 +145,6 @@ int32_t rpcOpen()
 		dbg_print(TAG, PRINT_LEVEL_ERROR, "create srspSem error");
 		return -1;
 	}
-	// sem_init(&rpcSem, 0, 1); // initialize mutex to 1 - binary semaphore
-	// sem_init(&srspSem, 0, 0); // initialize mutex to 0 - binary semaphore
 
 	// rpcForceRun();
 
@@ -452,7 +450,6 @@ uint8_t rpcSendFrame(uint8_t cmd0, uint8_t cmd1, uint8_t *payload,
 
 	// block here if SREQ is in progress
 	dbg_print(TAG, PRINT_LEVEL_INFO, "rpcSendFrame: Blocking on RPC sem");
-	// sem_wait(&rpcSem);
 	if (xSemaphoreTake(rpcSem, portMAX_DELAY) != pdTRUE)
 	{
 		dbg_print(TAG, PRINT_LEVEL_ERROR, "xSemaphoreTake rpcSem error");
@@ -504,7 +501,6 @@ uint8_t rpcSendFrame(uint8_t cmd0, uint8_t cmd1, uint8_t *payload,
 				  expectedSrspCmdId);
 
 		// Wait for the SRSP
-		// status = sem_timedwait(&srspSem, &srspTimeOut);
 		if (xSemaphoreTake(srspSem, srspTimeOut.tv_sec * 1000 / portTICK_PERIOD_MS) != pdTRUE)
 		{
 			dbg_print(TAG, PRINT_LEVEL_WARNING,
@@ -523,7 +519,6 @@ uint8_t rpcSendFrame(uint8_t cmd0, uint8_t cmd1, uint8_t *payload,
 	}
 
 	// Unlock RPC sem
-	// sem_post(&rpcSem);
 	xSemaphoreGive(rpcSem);
 
 	return status;

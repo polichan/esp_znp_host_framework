@@ -120,8 +120,6 @@ void llq_open(llq_t *hndl)
 		dbg_print(TAG, PRINT_LEVEL_ERROR, "llqCountSem create error");
 		return;
 	}
-	// sem_init(&(hndl->llqAccessSem), 0, 1);
-	// sem_init(&(hndl->llqCountSem), 0, 0);
 	dbg_print(TAG, PRINT_LEVEL_ERROR, "llq_open done");
 }
 
@@ -152,7 +150,6 @@ int llq_timedreceive(llq_t *hndl, char *buffer, int maxLength,
 				  "timeout: %d", timeout->tv_sec * 1000 / portTICK_PERIOD_MS);
 		// wait for a message or timeout
 		sepmRnt = xSemaphoreTake(hndl->llqCountSem, timeout->tv_sec * 1000 / portTICK_PERIOD_MS);
-		// sepmRnt = sem_timedwait(&(hndl->llqCountSem), timeout);
 	}
 	else
 	{

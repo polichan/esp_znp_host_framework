@@ -5,6 +5,29 @@ ESP_ZNP_HOST_FRAMEWORK 是基于 Ti 官方的 [znp_host_framwork](https://git.ti
 #### Usage
 
 
+**rpcTransportUart.c** 
+
+implements your own uart transport
+
+```c
+/*********************************************************************
+ * @fn      rpcTransportWrite
+ *
+ * @brief   Write to the the serial port to the CC253x.
+ *
+ * @param   fd - file descriptor of the UART device
+ *
+ * @return  status
+ */
+void rpcTransportWrite(uint8_t *buf, uint8_t len)
+{
+	dbg_print(TAG, PRINT_LEVEL_VERBOSE, "rpcTransportWrite : len = %d", len);
+	// @implements Your own uart
+	// uart_write((char *)buf, len);
+	return;
+}
+```
+
 **main.c**
 
 ```c

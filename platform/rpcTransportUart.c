@@ -49,9 +49,6 @@
 #include <stdint.h>
 #include <errno.h>
 #include <string.h>
-#include "user_uart.h"
-
-//#include "rpc.h"
 
 #include "dbgPrint.h"
 
@@ -98,6 +95,7 @@ static const char *TAG = "rpcTransportUart";
  */
 int32_t rpcTransportOpen(char *_devicePath, uint32_t port)
 {
+	// we don't need such function, but anyway, just leaved here.
 	return 0;
 }
 
@@ -125,7 +123,8 @@ void rpcTransportClose(void)
 void rpcTransportWrite(uint8_t *buf, uint8_t len)
 {
 	dbg_print(TAG, PRINT_LEVEL_VERBOSE, "rpcTransportWrite : len = %d", len);
-	uart_write((char *)buf, len);
+	// @implements Your own uart
+	// uart_write((char *)buf, len);
 	return;
 }
 
